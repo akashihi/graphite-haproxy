@@ -62,7 +62,7 @@ func parse(page io.ReadCloser) ([]Status, error) {
 	for _, entry := range records {
 		var item = Status{}
 		item.Type = entry[32]
-		item.Name = strings.Join(entry[0:1], "-")
+		item.Name = strings.Join(entry[0:2], "-")
 
 		item.SCur = entry[4]
 		item.STot = entry[7]
