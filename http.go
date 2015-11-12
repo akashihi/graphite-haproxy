@@ -22,13 +22,13 @@ import (
 	"strconv"
 )
 
-func getPage(url string) (io.Reader, error) {
+func getPage(url string) (io.ReadCloser, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Error("Can't request status page: %v", err)
 		return nil, err
 	}
-	defer resp.Body.Close()
+
 	if resp.StatusCode != 200 {
 		log.Error("Server responded with non-success code: %d", resp.StatusCode)
 		return nil, errors.New(strconv.Itoa(resp.StatusCode))

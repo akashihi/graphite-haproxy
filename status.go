@@ -49,11 +49,12 @@ type Status struct {
 	TTime    string
 }
 
-func parse(page io.Reader) ([]Status, error) {
+func parse(page io.ReadCloser) ([]Status, error) {
 	var result = []Status{}
 
 	r := csv.NewReader(page)
 	records, err := r.ReadAll()
+	page.Close()
 	if err != nil {
 		log.Error("Can't parse status page: %v", err)
 		return result, err
@@ -69,6 +70,8 @@ func parse(page io.Reader) ([]Status, error) {
 		item.BytesOut = entry[9]
 
 		switch item.Type { //Type
+		case "type": //Header
+			continue
 		case "0": //Frontend
 			item.Type = "Frontend"
 			item.EReq = entry[12]

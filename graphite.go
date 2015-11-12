@@ -18,9 +18,11 @@ package main
 import (
 	"fmt"
 	"github.com/marpaia/graphite-golang"
+"github.com/davecgh/go-spew/spew"
 )
 
 func sendMetrics(status []Status, config Configuration) {
+	spew.Dump(status)
 	var Graphite, err = graphite.NewGraphite(config.MetricsHost, config.MetricsPort)
 	if err != nil {
 		log.Error("Can't connect to graphite collector: %v", err)
