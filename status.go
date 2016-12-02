@@ -22,31 +22,33 @@ import (
 )
 
 type Status struct {
-	Type     string
-	Name     string
-	QCur     string
-	SCur     string
-	STot     string
-	BytesIn  string
-	BytesOut string
-	EReq     string
-	Econ     string
-	EResp    string
-	Chkfail  string
-	ChkDown  string
-	Downtime string
-	ChkDur   string
-	HRSP1    string
-	HRSP2    string
-	HRSP3    string
-	HRSP4    string
-	HRSP5    string
-	HRSPO    string
-	ReqTot   string
-	QTime    string
-	CTime    string
-	RTime    string
-	TTime    string
+	Type        string
+	Name        string
+	QCur        string
+	SCur        string
+	STot        string
+	BytesIn     string
+	BytesOut    string
+	EReq        string
+	Econ        string
+	EResp       string
+	Chkfail     string
+	ChkDown     string
+	Downtime    string
+	ChkDur      string
+	HRSP1       string
+	HRSP2       string
+	HRSP3       string
+	HRSP4       string
+	HRSP5       string
+	HRSPO       string
+	ReqTot      string
+	QTime       string
+	CTime       string
+	RTime       string
+	TTime       string
+	MaxReqRate  string
+	CurrReqRate string
 }
 
 func parse(page io.ReadCloser) ([]Status, error) {
@@ -81,6 +83,8 @@ func parse(page io.ReadCloser) ([]Status, error) {
 			item.HRSP4 = entry[42]
 			item.HRSP5 = entry[43]
 			item.HRSPO = entry[44]
+			item.CurrReqRate = entry[46]
+			item.MaxReqRate = entry[47]
 			item.ReqTot = entry[48]
 			break
 		case "1": //Backend

@@ -17,7 +17,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/marpaia/graphite-golang"
+
+	graphite "github.com/marpaia/graphite-golang"
 )
 
 func sendMetrics(status []Status, config Configuration) {
@@ -96,6 +97,12 @@ func sendMetrics(status []Status, config Configuration) {
 		}
 		if entry.TTime != "" {
 			Graphite.SimpleSend(fmt.Sprint(config.MetricsPrefix, ".haproxy.", entry.Type, ".", entry.Name, ".time_total_session"), entry.TTime)
+		}
+		if entry.CurrReqRate != "" {
+			Graphite.SimpleSend(fmt.Sprint(config.MetricsPrefix, ".haproxy.", entry.Type, ".", entry.Name, ".current_request_rate"), entry.CurrReqRate)
+		}
+		if entry.MaxReqRate != "" {
+			Graphite.SimpleSend(fmt.Sprint(config.MetricsPrefix, ".haproxy.", entry.Type, ".", entry.Name, ".max_request_rate"), entry.MaxReqRate)
 		}
 	}
 }
